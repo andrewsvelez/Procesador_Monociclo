@@ -1,0 +1,69 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+ 
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--USE ieee.numeric_std.ALL;
+ 
+ENTITY NPC_TB IS
+END NPC_TB;
+ 
+ARCHITECTURE behavior OF NPC_TB IS 
+ 
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT NPC
+    PORT(
+         Reset : IN  std_logic;
+         Din : IN  std_logic_vector(31 downto 0);
+         Dout : OUT  std_logic_vector(31 downto 0);
+         Clk : IN  std_logic
+        );
+    END COMPONENT;
+    
+
+   --Inputs
+   signal Reset : std_logic := '0';
+   signal Din : std_logic_vector(31 downto 0) := (others => '0');
+   signal Clk : std_logic := '0';
+
+ 	--Outputs
+   signal Dout : std_logic_vector(31 downto 0);
+
+   -- Clock period definitions
+   constant Clk_period : time := 10 ns;
+ 
+BEGIN
+ 
+	-- Instantiate the Unit Under Test (UUT)
+   uut: NPC PORT MAP (
+          Reset => Reset,
+          Din => Din,
+          Dout => Dout,
+          Clk => Clk
+        );
+
+   -- Clock process definitions
+   Clk_process :process
+   begin
+		Clk <= '0';
+		wait for Clk_period/2;
+		Clk <= '1';
+		wait for Clk_period/2;
+   end process;
+ 
+
+   -- Stimulus process
+   stim_proc: process
+   begin		
+      -- hold reset state for 20 ns.
+      wait for 20 ns;	
+
+      wait for Clk_period*10;
+
+      -- insert stimulus here 
+
+      wait;
+   end process;
+
+END;
