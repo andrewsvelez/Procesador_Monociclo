@@ -1,0 +1,64 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+ 
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--USE ieee.numeric_std.ALL;
+ 
+ENTITY Adder_TB IS
+END Adder_TB;
+ 
+ARCHITECTURE behavior OF Adder_TB IS 
+ 
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT Adder
+    PORT(
+         Npc_out : IN  std_logic_vector(31 downto 0);
+         Npc_in : OUT  std_logic_vector(31 downto 0)
+        );
+    END COMPONENT;
+    
+
+   --Inputs
+   signal Npc_out : std_logic_vector(31 downto 0) := (others => '0');
+
+ 	--Outputs
+   signal Npc_in : std_logic_vector(31 downto 0);
+   -- No clocks detected in port list. Replace <clock> below with 
+   -- appropriate port name 
+ 
+   --constant <clock> period: time :=10 ns;
+ 
+BEGIN
+ 
+	-- Instantiate the Unit Under Test (UUT)
+   uut: Adder PORT MAP (
+          Npc_out => Npc_out,
+          Npc_in => Npc_in
+        );
+
+   -- Clock process definitions
+   --<clock>_process:process
+  -- begin
+		--<clock> <='0';
+		--wait for <clock>_period/2;
+		--<clock> <='1';
+		--wait for -<clock>_period/2;
+   --end process;
+ 
+
+   -- Stimulus process
+   --stim_proc: process
+   --begin		
+      -- hold reset state for 100 ns.
+      --wait for 20 ns;	
+
+      --wait for <clock>_period*10;
+
+      -- insert stimulus here 
+
+      --wait;
+   --end process;
+
+END;
