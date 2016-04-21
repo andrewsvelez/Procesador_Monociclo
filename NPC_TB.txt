@@ -1,3 +1,30 @@
+--------------------------------------------------------------------------------
+-- Company: 
+-- Engineer:
+--
+-- Create Date:   18:47:05 04/20/2016
+-- Design Name:   
+-- Module Name:   C:/Users/LuisaM/Documents/Universidad/Arq computadores/ProcesadorMonociclo/NPC_TB.vhd
+-- Project Name:  ProcesadorMonociclo
+-- Target Device:  
+-- Tool versions:  
+-- Description:   
+-- 
+-- VHDL Test Bench Created by ISE for module: NPC
+-- 
+-- Dependencies:
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+--
+-- Notes: 
+-- This testbench has been automatically generated using types std_logic and
+-- std_logic_vector for the ports of the unit under test.  Xilinx recommends
+-- that these types always be used for the top-level I/O of a design in order
+-- to guarantee that the testbench will bind correctly to the post-implementation 
+-- simulation model.
+--------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
@@ -56,10 +83,17 @@ BEGIN
    -- Stimulus process
    stim_proc: process
    begin		
-      -- hold reset state for 20 ns.
-      wait for 20 ns;	
-
-      wait for Clk_period*10;
+		Reset <='1';
+      -- hold reset state for 100 ns.
+      Din <= "00000000000000000000000000000000"; 
+      reset <= '0'; 
+		wait for 20 ns;
+		Din <= "00000000000000000000000000000001";
+		wait for 20 ns;
+		Din <= "00000000000000000000000000000010";
+		wait for 20 ns;
+		Din <= "00000000000000000000000000000011";
+--      wait for Clk_period*10;
 
       -- insert stimulus here 
 
