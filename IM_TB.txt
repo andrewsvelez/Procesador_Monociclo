@@ -1,3 +1,20 @@
+-- Description:   
+-- 
+-- VHDL Test Bench Created by ISE for module: IM
+-- 
+-- Dependencies:
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+--
+-- Notes: 
+-- This testbench has been automatically generated using types std_logic and
+-- std_logic_vector for the ports of the unit under test.  Xilinx recommends
+-- that these types always be used for the top-level I/O of a design in order
+-- to guarantee that the testbench will bind correctly to the post-implementation 
+-- simulation model.
+--------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
@@ -8,7 +25,7 @@ USE ieee.std_logic_1164.ALL;
 ENTITY IM_TB IS
 END IM_TB;
  
-ARCHITECTURE behavior OF IM_TB IS 
+ARCHITECTURE InstructionMemory OF IM_TB IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
@@ -42,22 +59,26 @@ BEGIN
         );
 
    -- Clock process definitions
-   --<clock>_process :process
-   begin
-		--<clock> <= '0';
-		wait for <clock>_period/2;
-		<clock> <= '1';
-		wait for <clock>_period/2;
-   end process;
+--   <clock>_process :process
+--   begin
+--		<clock> <= '0';
+--		wait for <clock>_period/2;
+--		<clock> <= '1';
+--		wait for <clock>_period/2;
+--   end process;
  
 
    -- Stimulus process
    stim_proc: process
-   begin		
+   begin	
+		Reset <= '1';
+		
       -- hold reset state for 100 ns.
-      wait for 20 ns;	
-
-      --wait for <clock>_period*10;
+      wait for 30 ns;	
+		Reset <= '0';
+		Address <= "00000000000000000000000000000010";
+--
+--      wait for <clock>_period*10;
 
       -- insert stimulus here 
 
