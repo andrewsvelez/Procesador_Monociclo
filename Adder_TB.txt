@@ -1,3 +1,4 @@
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
@@ -14,51 +15,54 @@ ARCHITECTURE behavior OF Adder_TB IS
  
     COMPONENT Adder
     PORT(
-         Npc_out : IN  std_logic_vector(31 downto 0);
-         Npc_in : OUT  std_logic_vector(31 downto 0)
+         NPC_OUT : IN  std_logic_vector(31 downto 0);
+         NPC_IN : OUT  std_logic_vector(31 downto 0)
         );
     END COMPONENT;
     
 
    --Inputs
-   signal Npc_out : std_logic_vector(31 downto 0) := (others => '0');
+   signal NPC_OUT : std_logic_vector(31 downto 0) := (others => '0');
 
  	--Outputs
-   signal Npc_in : std_logic_vector(31 downto 0);
+   signal NPC_IN : std_logic_vector(31 downto 0);
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
  
-   --constant <clock> period: time :=10 ns;
+--   constant <clock>_period : time := 10 ns;
  
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
    uut: Adder PORT MAP (
-          Npc_out => Npc_out,
-          Npc_in => Npc_in
+          NPC_OUT => NPC_OUT,
+          NPC_IN => NPC_IN
         );
 
    -- Clock process definitions
-   --<clock>_process:process
-  -- begin
-		--<clock> <='0';
-		--wait for <clock>_period/2;
-		--<clock> <='1';
-		--wait for -<clock>_period/2;
-   --end process;
+--   <clock>_process :process
+--   begin
+--		<clock> <= '0';
+--		wait for <clock>_period/2;
+--		<clock> <= '1';
+--		wait for <clock>_period/2;
+--   end process;
  
 
    -- Stimulus process
-   --stim_proc: process
-   --begin		
+   stim_proc: process
+   begin		
+	
+	   NPC_OUT  <=x"00000002"; 
       -- hold reset state for 100 ns.
-      --wait for 20 ns;	
+      wait for 20 ns;
+		
 
-      --wait for <clock>_period*10;
+--      wait for <clock>_period*10;
 
       -- insert stimulus here 
 
-      --wait;
-   --end process;
+      wait;
+   end process;
 
 END;
