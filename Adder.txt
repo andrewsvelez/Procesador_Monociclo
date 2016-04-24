@@ -13,15 +13,18 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 --use UNISIM.VComponents.all;
 
 entity Adder is
-    Port ( Npc_out : in  STD_LOGIC_VECTOR (31 downto 0);
-           Npc_in : out  STD_LOGIC_VECTOR (31 downto 0));
+    Port ( NPC_OUT : in  STD_LOGIC_VECTOR (31 downto 0);
+           NPC_IN : out  STD_LOGIC_VECTOR (31 downto 0));
 end Adder;
 
-architecture Behavioral of Adder is
+architecture Sum of Adder is
 
 begin
+	process(NPC_OUT)
+	
+	begin
+		NPC_IN <= "0100" + NPC_OUT;
+	end process;
 
-Npc_in <= "0100" + Npc_out;
-
-end Behavioral;
+end Sum;
 
