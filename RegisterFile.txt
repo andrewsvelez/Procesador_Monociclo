@@ -2,8 +2,6 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
-
-
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 --use IEEE.NUMERIC_STD.ALL;
@@ -13,35 +11,43 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity RegisterFile is
-    Port ( Rs : in  STD_LOGIC_VECTOR (4 downto 0);
-           Rt : in  STD_LOGIC_VECTOR (4 downto 0);
-           Dw : in  STD_LOGIC_VECTOR (31 downto 0);
-           Rw : in  STD_LOGIC_VECTOR (4 downto 0);
-           Rf_wr : in  STD_LOGIC;
-           Clk : in  STD_LOGIC;
-           CRs : out  STD_LOGIC_VECTOR (31 downto 0);
-           Crt : out  STD_LOGIC_VECTOR (31 downto 0));
-end RegisterFile;
+entity Register_file is
+    Port ( clk : in  STD_LOGIC;
+           reset : in  STD_LOGIC;
+           RS1 : in  STD_LOGIC_VECTOR (4 downto 0);
+           RS2 : in  STD_LOGIC_VECTOR (4 downto 0);
+           RD : in  STD_LOGIC_VECTOR (4 downto 0);
+           WE : in  STD_LOGIC;
+			  DW : in STD_LOGIC_VECTOR (31 downto 0);
+           CRS1 : out  STD_LOGIC_VECTOR (31 downto 0);
+           CRS2 : out  STD_LOGIC_VECTOR (31 downto 0);
+           CRD : out  STD_LOGIC_VECTOR (31 downto 0));
+end Register_file;
 
-architecture ArqRegisterFile of RegisterFile is
-Type registro is array (0 to 31)of std_logic_vector (31 downto 0);
-signal rg : registro := (others => x"00000000");
+architecture Arq_RF of Register_file is
+
+	type ram_type is array (0 to 39) of std_logic_vector (31 downto 0);
+	signal registers : ram_type :=(others => x"00000000");
 
 begin
-	CRs <= rg (conv_integer (Rs)); 
-	CRt <= rg (conv_integer (Rt));
-
-	process (clk, RF_WR, RW, DW)
-		
-		begin
-
-			if rising_edge (clk) then
-				if Rf_wr = '1' and Rw /= "00000" then
-					rg (conv_integer (Rw)) <= DW;
+	process(reset,RS1,RS2,RD,WE,DW,clk)
+	begin
+		if(rising_edge(clk))then
+			if(reset = '1')then
+				CRS1 <= (others=>'0');
+				CRS2 <= (others=>'0');
+				CRD <= (others=>'0');
+				registers <= (others => x"00000000");
+			else
+				CRS1 <= registers(conv_integer(RS1));
+				CRS2  <= registers(conv_integer(RS2));
+				CRD <= registers(conv_integer(RD));
+				if(WE = '1' and RD /= "000000")then
+					registers(conv_integer(RD)) <= DW;
 				end if;
 			end if;
-			
+		end if;
 	end process;
+end Arq_RF;
 
-end ArqRegisterFile;
+
