@@ -1,3 +1,21 @@
+- Company: 
+-- Engineer: 
+-- 
+-- Create Date:    15:47:28 04/24/2016 
+-- Design Name: 
+-- Module Name:    Register_file - Arq_RF 
+-- Project Name: 
+-- Target Devices: 
+-- Tool versions: 
+-- Description: 
+--
+-- Dependencies: 
+--
+-- Revision: 
+-- Revision 0.01 - File Created
+-- Additional Comments: 
+--
+----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
@@ -12,16 +30,14 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 --use UNISIM.VComponents.all;
 
 entity Register_file is
-    Port ( clk : in  STD_LOGIC;
+    Port ( 
            reset : in  STD_LOGIC;
            RS1 : in  STD_LOGIC_VECTOR (4 downto 0);
            RS2 : in  STD_LOGIC_VECTOR (4 downto 0);
            RD : in  STD_LOGIC_VECTOR (4 downto 0);
-           WE : in  STD_LOGIC;
 			  DW : in STD_LOGIC_VECTOR (31 downto 0);
            CRS1 : out  STD_LOGIC_VECTOR (31 downto 0);
-           CRS2 : out  STD_LOGIC_VECTOR (31 downto 0);
-           CRD : out  STD_LOGIC_VECTOR (31 downto 0));
+           CRS2 : out  STD_LOGIC_VECTOR (31 downto 0));
 end Register_file;
 
 architecture Arq_RF of Register_file is
@@ -30,24 +46,19 @@ architecture Arq_RF of Register_file is
 	signal registers : ram_type :=(others => x"00000000");
 
 begin
-	process(reset,RS1,RS2,RD,WE,DW,clk)
+	process(reset,RS1,RS2,RD,DW)
 	begin
-		if(rising_edge(clk))then
+		
 			if(reset = '1')then
 				CRS1 <= (others=>'0');
 				CRS2 <= (others=>'0');
-				CRD <= (others=>'0');
 				registers <= (others => x"00000000");
 			else
 				CRS1 <= registers(conv_integer(RS1));
 				CRS2  <= registers(conv_integer(RS2));
-				CRD <= registers(conv_integer(RD));
-				if(WE = '1' and RD /= "000000")then
+				if(RD /= "000000")then
 					registers(conv_integer(RD)) <= DW;
 				end if;
 			end if;
-		end if;
-	end process;
+		end process;
 end Arq_RF;
-
-
